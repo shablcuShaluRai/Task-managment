@@ -21,7 +21,7 @@ export default class App extends Component {
 
     updateItem = (newItem) => {
       this.state.todo.push(this.state.newItem)
-      this.setState({newItem:''})
+          this.setState({newItem:''})
      }
 
     handleKeyPress = (event) => {
@@ -31,6 +31,8 @@ export default class App extends Component {
     }
 
   render() {
+    let showingData = this.state.todo.sort()
+    console.log(showingData);
 
     return (
       <div className="App" align='center'>
@@ -41,7 +43,7 @@ export default class App extends Component {
          onChange = { (event) => this.handleChange(event.target.value)}
          onKeyPress = { this.handleKeyPress}
         />
-       {this.state.todo.map((todo, index) => <p key = { index }>{ todo}</p>) }
+       {showingData.map((todo, index) => <p key = { index }>{ todo}</p>) }
       </div>
     );
   }
