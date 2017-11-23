@@ -3,3 +3,24 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+
+table {
+  border-collapse: separate;
+}
+
+th {
+  font-size: 25px;
+  text-align: left;
+  padding: 8px;
+}
+
+td {
+  font-size: 20px;
+  text-align: left;
+  padding: 8px;
+}
+
+tr, td {
+  border: none;
+}
