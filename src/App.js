@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import Draggable from 'react-draggable';
-
-
-
-let intialTasks = [
-    'project 1',
-    'project 2'
-   ];
+import TodoItem from './TodoItem'
 
 export default class App extends Component {
 
   state = {
-    todo:intialTasks,
-    newItem:''
+    projects : [],
+    todo : [],
+    progress : [],
+    done : [],
+    newItem : '',
+    mainover: {},
   }
 
 
@@ -22,6 +19,7 @@ export default class App extends Component {
 
     updateItem = (newItem) => {
       this.state.todo.push(this.state.newItem)
+      this.state.projects.push(this.state.newItem)
           this.setState({newItem:''})
      }
 
@@ -31,42 +29,90 @@ export default class App extends Component {
       }
     }
 
-  render() {
-    let showingData = this.state.todo.sort()
-    console.log(showingData.length);
+    dragOver = (e) => {
+      this.setState({
+        mainover : e.target.dataset
+      });
+        }
 
-    return (
-      <div className="App" align='center'>
-        <h1>Jio Todo</h1>
-        <p>total: {showingData.length} projects </p>
+
+
+  render() {
+      return (
+      <div>
+      <div className="header container-fluid">
+        <div >
+              <h1> Jio Task Management </h1>
+        </div>
+      </div>
+      <div className="count-bar total">
+        {this.state.projects.length} <br/> Projects
+      </div>
+      <div className="container">
+
+        <label>Add Project</label>
         <input
          type = 'text'
+         placeholder = 'Enter project'
          value = {this.state.newItem}
          onChange = { (event) => this.handleChange(event.target.value)}
          onKeyPress = { this.handleKeyPress}
         />
-         <div>
-         <table>
-         <thead>
-         <tr>
-         <td>Todolist</td>
-         <td>InProgress</td>
-         <td>Done</td>
-         </tr>
-         </thead>
-          <tbody>
-          {showingData.map((todo, index) =>
-            <Draggable>
-            <li key = { index }>
-             { todo }</li>
-            </Draggable>) }
-          </tbody>
+        </div>
 
 
+         <div className='container'>
+           <div onDragOver={this.dragOver}>
+               <div className='row'>
+                 <div className="todo block">
+                   <div className="block-header">
+                     <h4 data-type="todo">To do </h4>
+                     <div className="count-bar">{this.state.todo.length} <br/> PROJECTS</div>
+                   </div>
+                   <div className="block-body">
+                     <TodoItem
+                        list={this.state.todo}
+                        over={this.state.mainover}
+                       id="todo" />
+                    </div>
+                 </div>
+               </div>
+               <div  className = 'col2'data-type="progress">
+               <div>
+                 <div className=" block" data-type="progress">
+                     <div className="block-header" data-type="progress">
+                       <h4 data-type="progress">  InProgress </h4>
+                       <div className="count-bar" data-type="progress">{this.state.progress.length} <br/> PROJECTS</div>
+                     </div>
+                     <div className="block-body" data-type="progress">
+                      <TodoItem
+                         list={this.state.progress}
+                          over={this.state.mainover}
+                         id="progress" />
+                     </div>
+                 </div>
+               </div>
+               </div>
+               <div  className='col3' data-type="done">
+                 <div className=" block" data-type="done">
+                     <div className="block-header" data-type="done">
+                       <h4 data-type="done">  Done </h4>
+                       <div className="count-bar" data-type="done">{this.state.done.length} <br/> PROJECTS</div>
+                     </div>
+                     <div className="block-body" data-type="done">
 
-         </table>
-         </div>
+                       <TodoItem
+                         list={this.state.done}
+                          over={this.state.mainover}
+                         id="done" />
+
+                     </div>
+                 </div>
+               </div>
+           </div>
       </div>
+      </div>
+
     );
   }
 }
