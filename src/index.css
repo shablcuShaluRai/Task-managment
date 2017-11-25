@@ -1,10 +1,10 @@
 body {
-	font-family: "Trebuchet MS";
+	font-family: "Gill Sans Extrabold, sans-serif";
 	background: #fff;
 }
 
 .header {
-  background: #FF0000;
+  background: #ff0000;
   padding: 20px 50px;
   margin-bottom: 20px;
   color: #fff;
@@ -23,7 +23,7 @@ input {
 
 .block {
   margin: 20px 0px;
-  width: 35%;
+  width: 90%;
   position: relative;
   background: #fff;
   min-height: 90px;
@@ -38,6 +38,14 @@ input {
 .block-header h4 {
 	display: inline-block;
 	color: #fff;
+}
+
+.done .block-header {
+  background-color: limegreen;
+}
+
+.in-progress .block-header {
+  background-color: orange;
 }
 
 
@@ -71,13 +79,22 @@ li {
   border-left: 5px solid #999;
 }
 
-.row:before {
-    display: table;
-    content: " ";
-	}
-	.container {
-  display: flex;
+.done li:before {
+   content:  "\2713 ";
+  padding: 0px 5px;
 }
-.container > div {
-  flex: 1; /*grow*/
+
+.in-progress li {
+border-left: 5px solid orange;
+
+}
+
+.done li {
+border-left: 5px solid limegreen;
+}
+
+.light {
+  color: #999;
+  line-height: 2.2;
+  padding-bottom: 10px;
 }
